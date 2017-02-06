@@ -122,32 +122,35 @@ string PerformDB(char** argv) {
   U5_frac = atof(argv[1]);
   Enricht = atof(argv[2]);
   double N_tot = 0;
+  double N_add = 0;
   double N_U5 = (1 - Enricht) * U5_frac;  // 3
   double N_U8 = (1 - Enricht) * (1 - U5_frac);  // 5
   N_tot += N_U8 + N_U5;
 
   double N_Pu8 = Enricht * atof(argv[3]);
-  double N_Pu9 = Enricht * atof(argv[4]);
-  double N_Pu0 = Enricht * atof(argv[5]);
-  double N_Pu1 = Enricht * atof(argv[6]);
+  double N_Pu0 = Enricht * atof(argv[4]);
+  double N_Pu1 = Enricht * atof(argv[5]) * atof(argv[6]);
   double N_Pu2 = Enricht * atof(argv[7]);
-  N_tot += N_Pu8 + N_Pu9 + N_Pu0 + N_Pu1+ N_Pu2;
   
-  double N_Am1 = Enricht * atof(argv[8]);
-  double N_Am2 = Enricht * atof(argv[9]);
-  double N_Am3 = Enricht * atof(argv[10]);
-  N_tot += N_Am1 + N_Am2 + N_Am3;
+  N_add += N_Pu8 + N_Pu0 + N_Pu1+ N_Pu2;
   
-  double N_Np7 = Enricht * atof(argv[11]);
-  N_tot += N_Np7;
+  double N_Am1 = Enricht * atof(argv[5]) * (1 - atof(argv[6]));
+  double N_Am2 = Enricht * atof(argv[8]);
+  double N_Am3 = Enricht * atof(argv[9]);
+  N_add += N_Am1 + N_Am2 + N_Am3;
   
-  double N_Cm2 = Enricht * atof(argv[12]);
-  double N_Cm3 = Enricht * atof(argv[13]);
-  double N_Cm4 = Enricht * atof(argv[14]);
-  double N_Cm5 = Enricht * atof(argv[15]);
-  double N_Cm6 = Enricht * atof(argv[16]);
-  N_tot += N_Cm2 + N_Cm3 + N_Cm4 + N_Cm5 + N_Cm6;
+  double N_Np7 = Enricht * atof(argv[10]);
+  N_add += N_Np7;
+  
+  double N_Cm2 = Enricht * atof(argv[11]);
+  double N_Cm3 = Enricht * atof(argv[12]);
+  double N_Cm4 = Enricht * atof(argv[13]);
+  double N_Cm5 = Enricht * atof(argv[14]);
+  double N_Cm6 = Enricht * atof(argv[15]);
+  N_add += N_Cm2 + N_Cm3 + N_Cm4 + N_Cm5 + N_Cm6;
 
+  double N_Pu9 = Enricht * (1-N_add);
+  N_tot += N_add;
 
 
   // !!! Should have  Sum of HN = 1
@@ -207,7 +210,7 @@ string PerformDB(char** argv) {
   s_OUT +="N_Cm3_" + dtoa(N_Cm3) + "__";
   s_OUT +="N_Cm4_" + dtoa(N_Cm4) + "__";
   s_OUT +="N_Cm5_" + dtoa(N_Cm5) + "__";
-  s_OUT +="N_Cm6_" + dtoa(N_Cm6) + "__";
+  s_OUT +="N_Cm6_" + dtoa(N_Cm6);
 
   //==========================================================================================
   // Miscellaneous for MURE

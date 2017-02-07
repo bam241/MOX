@@ -149,8 +149,8 @@ string PerformDB(char** argv) {
   double N_Cm5 = Enricht * atof(argv[15]);
   double N_Cm6 = Enricht * atof(argv[16]);
   N_add += N_Cm2 + N_Cm3 + N_Cm4 + N_Cm5 + N_Cm6;
-
-  double N_Pu9 = Enricht * (1-N_add);
+  cout << "!!!!!!!!!! N_Add !!!!!!!!!!!" << N_add/Enricht << endl;
+  double N_Pu9 = (1-N_add/Enricht) * Enricht;
   N_add += N_Pu9;
   N_tot += N_add;
 
@@ -158,8 +158,8 @@ string PerformDB(char** argv) {
   // !!! Should have  Sum of HN = 1
   std::cout << "N_U5 "  << N_U5 << " " 
        << "N_U8 "  << N_U8 << " " 
-       << "n_pu8 " << n_Pu8 << " " 
-       << "n_pu6 " << n_Pu6 << " " 
+       << "N_Pu8 " << N_Pu8 << " " 
+       << "N_Pu6 " << N_Pu6 << " " 
        << "N_Pu9 " << N_Pu9 << " " 
        << "N_Pu0 " << N_Pu0 << " " 
        << "N_Pu1 " << N_Pu1 << " " 
@@ -199,23 +199,23 @@ string PerformDB(char** argv) {
   N_Cm6 = N_Cm6 / N_tot;
 
   s_OUT = "";
-  s_OUT +="N_U5_"  + dtoa(N_U5) + "__";
-  s_OUT +="N_U8_"  + dtoa(N_U8) + "__";
-  s_OUT +="N_Pu6_" + dtoa(N_Pu6) + "__";
-  s_OUT +="N_Pu8_" + dtoa(N_Pu8) + "__";
-  s_OUT +="N_Pu9_" + dtoa(N_Pu9) + "__";
-  s_OUT +="N_Pu0_" + dtoa(N_Pu0) + "__";
-  s_OUT +="N_Pu1_" + dtoa(N_Pu1) + "__";
-  s_OUT +="N_Pu2_" + dtoa(N_Pu2) + "__";
-  s_OUT +="N_Am1_" + dtoa(N_Am1) + "__";
-  s_OUT +="N_Am2_" + dtoa(N_Am2) + "__";
-  s_OUT +="N_Am3_" + dtoa(N_Am3) + "__";
-  s_OUT +="N_Np7_" + dtoa(N_Np7) + "__";
-  s_OUT +="N_Cm2_" + dtoa(N_Cm2) + "__";
-  s_OUT +="N_Cm3_" + dtoa(N_Cm3) + "__";
-  s_OUT +="N_Cm4_" + dtoa(N_Cm4) + "__";
-  s_OUT +="N_Cm5_" + dtoa(N_Cm5) + "__";
-  s_OUT +="N_Cm6_" + dtoa(N_Cm6);
+  s_OUT +="U5_"  + dtoa(N_U5 *100) + "_";
+  s_OUT +="8_"   + dtoa(N_U8 *100) + "_";
+  s_OUT +="Pu6_" + dtoa(N_Pu6*100) + "_";
+  s_OUT +="8_"   + dtoa(N_Pu8*100) + "_";
+  s_OUT +="9_"   + dtoa(N_Pu9*100) + "_";
+  s_OUT +="0_"   + dtoa(N_Pu0*100) + "_";
+  s_OUT +="1_"   + dtoa(N_Pu1*100) + "_";
+  s_OUT +="2_"   + dtoa(N_Pu2*100) + "_";
+  s_OUT +="Am1_" + dtoa(N_Am1*100) + "_";
+  s_OUT +="2_"   + dtoa(N_Am2*100) + "_";
+  s_OUT +="3_"   + dtoa(N_Am3*100) + "_";
+  s_OUT +="Np7_" + dtoa(N_Np7*100) + "_";
+  s_OUT +="Cm2_" + dtoa(N_Cm2*100) + "_";
+  s_OUT +="3_"   + dtoa(N_Cm3*100) + "_";
+  s_OUT +="4_"   + dtoa(N_Cm4*100) + "_";
+  s_OUT +="5_"   + dtoa(N_Cm5*100) + "_";
+  s_OUT +="6_"   + dtoa(N_Cm6*100);
 
   //==========================================================================================
   // Miscellaneous for MURE
@@ -731,7 +731,7 @@ void WriteDB() {
       ifstream in(s_File.c_str(), ios::binary);
       if (!in.good()) {
         cout << "Cannot find Binary file " << s_File << endl;
-        exit(0);
+        exit(1);
       }
       //
       // Read The version number of writing Mure evolving Data Format
@@ -981,7 +981,6 @@ void WriteDB() {
       zai_SN_2.clear();
       vFlux1.push_back(vFlux);
       vFlux.clear();
-
     }
     // else ERROR
     else {
@@ -1264,7 +1263,6 @@ void WriteDB() {
   // =========================================================================================
   //  BYE!
   // =========================================================================================
-
   OutputLog << "===================================================" << endl;
   OutputLog << "---------------------------------------------------" << endl;
 

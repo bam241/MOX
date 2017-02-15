@@ -255,7 +255,7 @@ string PerformDB(char** argv) {
   gMURE->SetBasePriority(BP);
   gMURE->SetSpectrumType("thermal");
 
-  gMURE->SetShortestHalfLife(3600);
+  gMURE->SetShortestHalfLife(32400);
   gMURE->SetReactionThreshold(1e-6);
   gMURE->GetTemperatureMap()->SetDeltaTPrecision(1500);
 
